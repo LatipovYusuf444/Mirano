@@ -1,6 +1,6 @@
-import { Product } from "@/types/"
+import type { Product } from "@/types"
 
-export const products: Omit<Product, "quantity">[] = [
+export const products: Product[] = [
   {
     id: "mirano-1",
     title: "Mirano Cotton Fabric",

@@ -7,8 +7,9 @@ import type { RootState } from "@/app/store"
 
 const Navbar = () => {
   const cartCount = useSelector(
-    (state: RootState) => state.cart.count
+    (state: RootState) => state.cart.items.length
   )
+
 
   return (
     <div className="pt-4 sm:pt-6 md:pt-10 relative">
