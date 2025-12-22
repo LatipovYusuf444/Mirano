@@ -1,54 +1,46 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useSelector } from "react-redux";
-import type { RootState } from "@/app/store";
+// O'zingizning store yo'lingizni tekshiring, odatda @/app/store bo'ladi
+import type { RootState } from "../app/store";
 import logo from "@/assets/images/mirano-bg-text.webp";
 import { Button } from "./ui/button";
 
-// Framer Motion variantlari
-const containerVariants = {
+// Framer Motion variantlari - turlari aniqlashtirildi
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2, // Bolalarni ketma-ket animatsiya qilish
-      delayChildren: 0.3 // Ota element paydo bo'lgach, bolalar keyinroq animatsiya qilinsin
+      staggerChildren: 0.2,
+      delayChildren: 0.3
     }
   }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: {
-      type: "spring", // Yumshoqroq animatsiya turi
-      stiffness: 100, // Tezlik
-      damping: 15 // Sekinlashish
-    }
+    transition: { type: "spring", stiffness: 100, damping: 15 }
   }
 };
 
-const buttonVariants = {
+const buttonVariants: Variants = {
   initial: { scale: 1, opacity: 1 },
-  hover: {
-    scale: 1.07, // Katta bo'lish
-    boxShadow: "0px 8px 20px rgba(255, 165, 0, 0.4)", // Orqa fon soyasi
-    transition: { duration: 0.3, ease: "easeOut" }
-  },
-  tap: { scale: 0.95 } // Bosilganda kichrayish
+  hover: { scale: 1.05, transition: { duration: 0.2 } },
+  tap: { scale: 0.95 }
 };
 
 // --- Header Komponenti ---
 const Header = () => {
   return (
     <section className="relative w-full h-[80vh] md:h-screen flex items-center justify-center overflow-hidden">
-      {/* Video foni - Kirish animatsiyasi qo'shildi */}
       <motion.div
         className="absolute inset-0 z-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }} // Sekin paydo bo'lish
+        transition={{ duration: 1.5, ease: "easeInOut" }}
       >
         <video
           autoPlay
@@ -62,11 +54,9 @@ const Header = () => {
             type="video/mp4"
           />
         </video>
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]"></div>
       </motion.div>
 
-      {/* Kontent - Ketma-ket animatsiya uchun container */}
       <motion.div
         className="relative z-10 container mx-auto px-6 text-center text-white pt-20"
         variants={containerVariants}
@@ -74,18 +64,16 @@ const Header = () => {
         animate="visible"
       >
         <div className="max-w-3xl mx-auto">
-          {/* Yangi Kolleksiya span'i */}
           <motion.span
             className="inline-block px-4 py-1 mb-4 text-sm font-medium tracking-widest uppercase bg-orange-600 rounded-full"
             variants={itemVariants}
-            initial={{ y: -20, opacity: 0 }} // Yuqoridan pastga tushib keladi
+            initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.5 }}
           >
             Yangi Kolleksiya
           </motion.span>
 
-          {/* Sarlavha */}
           <motion.h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
             variants={itemVariants}
@@ -93,7 +81,6 @@ const Header = () => {
             Sifatli <span className="text-orange-400">Textil</span> San'ati
           </motion.h1>
 
-          {/* Matn */}
           <motion.p
             className="text-lg md:text-xl mb-10 text-gray-200"
             variants={itemVariants}
@@ -101,10 +88,9 @@ const Header = () => {
             Bizning matolarimiz zamonaviy texnologiyalar va an'anaviy to'quv uslublari uyg'unligida yaratiladi.
           </motion.p>
 
-          {/* Tugmalar guruhi */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
-            variants={containerVariants} // Tugmalar ham ketma-ket animatsiya qilinsin
+            variants={containerVariants as any}
           >
             <motion.button
               className="px-8 py-4 bg-orange-500 text-white font-bold rounded-lg transition-all"
@@ -131,11 +117,11 @@ const Header = () => {
 
 // --- Asosiy Navbar va Header birlashmasi ---
 const HeroSection = () => {
+  // TypeScript xatosi bo'lmasligi uchun RootState turini aniq ko'rsatamiz
   const cartCount = useSelector((state: RootState) => state.cart.items.length);
 
   return (
     <div className="relative w-full">
-      {/* Navbar - Absolute holatda video ustiga qo'yilgan */}
       <nav className="absolute top-0 left-0 w-full z-50 pt-4 sm:pt-6 md:pt-10">
         <div
           className="
@@ -151,7 +137,6 @@ const HeroSection = () => {
             flex items-center justify-between
           "
         >
-          {/* Shimmer Animatsiyasi - o'zgarishsiz qoldi */}
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
             initial={{ x: "-100%" }}
@@ -159,7 +144,6 @@ const HeroSection = () => {
             transition={{ repeat: Infinity, duration: 2.5, ease: "linear" }}
           />
 
-          {/* Logo - Kirish animatsiyasi qo'shildi */}
           <motion.img
             src={logo}
             alt="Logo"
@@ -169,18 +153,16 @@ const HeroSection = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           />
 
-          {/* Actions - Kirish animatsiyasi qo'shildi */}
           <motion.div
             className="flex items-center gap-2 sm:gap-3 md:gap-4 relative z-10"
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
           >
-            {/* Cart Icon - Hover va Tap effektlari qo'shildi */}
             <motion.div
               className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 border border-white/20 rounded-xl flex items-center justify-center cursor-pointer hover:shadow-lg hover:shadow-orange-400/40 transition"
-              whileHover={{ scale: 1.1, boxShadow: "0px 0px 15px rgba(255, 165, 0, 0.6)" }} // Kattalashadi va soya paydo bo'ladi
-              whileTap={{ scale: 0.9 }} // Bosilganda kichrayadi
+              whileHover={{ scale: 1.1, boxShadow: "0px 0px 15px rgba(255, 165, 0, 0.6)" }}
+              whileTap={{ scale: 0.9 }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -202,28 +184,28 @@ const HeroSection = () => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] sm:text-xs w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center"
+                className="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] sm:text-xs w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow-md"
               >
                 {cartCount}
               </motion.span>
             </motion.div>
 
-            {/* Register Button - Hover va Tap effektlari qo'shildi */}
-            <Button
-              as={motion.button} // Button komponentini motion elementiga aylantiramiz
-              variant="outline"
-              className="cursor-pointer h-10 sm:h-11 md:h-14 px-4 sm:px-5 md:px-6 text-sm sm:text-base md:text-xl text-white border-white/20 bg-transparent"
+            <motion.div
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
             >
-              Register
-            </Button>
+              <Button
+                variant="outline"
+                className="cursor-pointer h-10 sm:h-11 md:h-14 px-4 sm:px-5 md:px-6 text-sm sm:text-base md:text-xl text-white border-white/20 bg-transparent hover:bg-orange-500 transition-all"
+              >
+                Register
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </nav>
 
-      {/* Header (Video bilan) */}
       <Header />
     </div>
   );
