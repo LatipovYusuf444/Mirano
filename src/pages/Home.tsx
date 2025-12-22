@@ -1,5 +1,5 @@
 import Navbar from '@/components/Navbar'
-import bgfon from "@/assets/images/bg-textile-100.jpg"
+import bgfon from "@/assets/images/bg-textile-100.webp"
 const Home = () => {
   return (
     <div>
