@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion} from "framer-motion";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../app/store";
