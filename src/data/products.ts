@@ -25,4 +25,22 @@ export const products: Product[] = [
     price: 35,
     image: "/images/textile-4.webp",
   },
+    {
+    id: "mirano-3",
+    title: "Industrial Fabric Roll",
+    price: 120,
+    image: "/images/textile-3.webp",
+  },
+   {
+    id: "mirano-2",
+    title: "Premium Linen Textile",
+    price: 60,
+    image: "/images/textile-2.webp",
+  },
+    {
+    id: "mirano-1",
+    title: "Mirano Cotton Fabric",
+    price: 45,
+    image: "/images/textile-1.webp",
+  },
 ]

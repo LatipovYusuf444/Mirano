@@ -32,10 +32,10 @@ const ProductCard = ({ id, title, price, image }: Props) => {
         onClick={() =>
           dispatch(
             addToCart({
-              id,
-              title,
-              price,
-              image,
+              id: Number(id), // 'string'ni 'number'ga o'tkazamiz
+              name: title,    // Slice 'name' kutmoqda, unga 'title'ni beramiz
+              price: String(price), // 'number'ni 'string'ga o'tkazamiz
+              image: image || "",   // 'undefined' bo'lmasligi uchun
             })
           )
         }
